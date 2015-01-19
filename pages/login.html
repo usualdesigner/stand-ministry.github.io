@@ -1,0 +1,25 @@
+    <div class="html">
+        <div class="ui attached message">
+            <div class="header">
+                Welcome to our site!
+            </div>
+            <p>Fill out the form below to sign-up for a new account</p>
+        </div>
+        <form class="ui form attached fluid segment" name="loginForm" ng-submit="login.sendLoginData()">
+            <div class="two fields">
+                <div class="field">
+                    <label>Login</label>
+                    <input placeholder="Login" type="text" ng-model="login.user.login" required="">
+                </div>
+                <div class="field">
+                    <label>Password</label>
+                    <input placeholder="Password" type="password" ng-model="login.user.password" required="">
+                </div>
+            </div>
+            <div class="ui buttons">
+                <a class="ui button active">Напомнить пароль</a>
+                <div class="or"></div>
+                <button class="ui positive button" ng-disabled="!loginForm.$valid" ng-class="{disabled: !loginForm.$valid}" type="submit">Вход</button>
+            </div>
+        </form>
+    </div>

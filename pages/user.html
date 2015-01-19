@@ -1,0 +1,28 @@
+<input type="search" ng-model="q" placeholder="filter friends..." />
+
+<table class="ui table">
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>E-mail</th>
+        <th>Телефон</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="user in user.users | filter:q as results">
+        <td>
+            {{user.firstname}}
+        </td>
+        <td>
+            {{user.lastname}}
+        </td>
+        <td>
+            {{user.email}}
+        </td>
+        <td>
+            {{user.phone}}
+        </td>
+    </tr>
+    </tbody>
+</table>

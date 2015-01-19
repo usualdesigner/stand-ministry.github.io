@@ -1,0 +1,126 @@
+<div class="ui grid">
+    <div class="eight wide column">
+        <div class="ui statistics">
+            <div class="statistic">
+                <div class="value">
+                    22
+                </div>
+                <div class="label">
+                    дня осталось в месяце
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    34
+                </div>
+                <div class="label">
+                    свободных смен
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    5
+                </div>
+                <div class="label">
+                    смен без пользователей
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="eight wide column">
+        <h3 class="ui header">
+            <i class="map icon"></i>
+
+            <div class="content">
+                Месторасположение стенда:
+                <div class="ui dropdown">
+                    <div class="text">Печерск</div>
+                    <div class="menu">
+                        <div class="item">Ж/Д Вокзал</div>
+                        <div class="item">Крещатик</div>
+                    </div>
+                </div>
+                <div class="sub header">You're looking for calendar started from 12 Dec ended at 19 Dec</div>
+            </div>
+        </h3>
+        <h3 class="ui header">
+            <i class="calendar icon"></i>
+
+            <div class="content">
+                Диапазон дат:
+                <div class="ui dropdown">
+                    <div class="text">29 декабря 2014 г. - 4 января 2015 г.</div>
+                    <div class="menu">
+                        <div class="item">5 января 2014 г. - 11 января 2015 г.</div>
+                        <div class="item">12 января - 18 января</div>
+                        <div class="item">19 января - 25 января</div>
+                    </div>
+                </div>
+                <div class="sub header">You're looking for calendar started from 12 Dec ended at 19 Dec</div>
+            </div>
+        </h3>
+    </div>
+</div>
+
+<h1>Расписание за: {{calendar.moment | amDateFormat:'MMMM'}} {{calendar.moment | amDateFormat:'YYYY'}} года</h1>
+
+<a class="ui vertical animated button" ui-sref="calendar(calendar.prevMonthParams())">
+    <div class="hidden content"> < Предыдущий месяц</div>
+    <div class="visible content">< Предыдущий месяц</div>
+</a>
+<a class="ui vertical animated button"
+   ui-sref="calendar({year: (today | amDateFormat:'YYYY'), month: (today | amDateFormat:'M')})"
+   ng-class="{disabled: ((calendar.moment | amDateFormat:'YYYY') == (today | amDateFormat:'YYYY')) && ((calendar.moment | amDateFormat:'M') == (today | amDateFormat:'M'))}">
+    <div class="hidden content">
+        Смотреть текущий месяц
+    </div>
+    <div class="visible content">
+        {{today | amDateFormat:'dddd, MMMM Do YYYY'}}
+    </div>
+</a>
+<a class="ui vertical animated button" ui-sref="calendar(calendar.nextMonthParams())">
+    <div class="hidden content">Следующий месяц ></div>
+    <div class="visible content">Следующий месяц ></div>
+</a>
+<table class="ui seven column table celled" id="calendar">
+    <thead>
+    <tr>
+        <th>Понедельник</th>
+        <th>Вторник</th>
+        <th>Среда</th>
+        <th>Четверг</th>
+        <th>Пятница</th>
+        <th>Суббота</th>
+        <th>Воскресенье</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="week in [] | range:calendar.days.length/7">
+        <td ng-repeat="day in calendar.days.slice(7*$index, 7*$index + 7)"
+            ng-class="{disabled: dayInMonth.moment.format('M') != calendar.moment.format('M'), warning: ((dayInMonth.moment | amDateFormat:'DD') == (today | amDateFormat:'DD') && (dayInMonth.moment | amDateFormat:'MM') == (today | amDateFormat:'MM') && (dayInMonth.moment | amDateFormat:'YYYY') == (today | amDateFormat:'YYYY'))}"
+            ng-controller='DayInMonthCtrl as dayInMonth'>
+            <span class="ui header disabled" ng-hide="dayInMonth.moment.format('M') == calendar.moment.format('M')">
+                {{dayInMonth.moment.format('D MMMM')}}
+            </span>
+
+            <div ng-show="dayInMonth.moment.format('M') == calendar.moment.format('M')">
+                <div class="ui grid">
+                    <div class="eight wide column">
+                        {{dayInMonth.moment.format('D MMMM')}}
+                    </div>
+                    <div class="eight wide column">
+                        <a class="mini ui button" ui-sref="day({year: (dayInMonth.moment | amDateFormat:'YYYY'), month: (dayInMonth.moment | amDateFormat:'M'), day: (dayInMonth.moment | amDateFormat:'D')})">Детали</a>
+                    </div>
+                </div>
+            </div>
+            <div class="ui clearing divider" ng-show="dayInMonth.moment.format('M') == calendar.moment.format('M')"></div>
+            <div class="ui mini labels" ng-show="dayInMonth.moment.format('M') == calendar.moment.format('M')">
+                <div class="ui label" ng-repeat="shift in day.shifts"
+                     ng-class="{green: shift.status == 'ready', red: shift.status == 'critical', '': shift.status == 'hold'}">
+                    {{$index+1}} смена
+                </div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

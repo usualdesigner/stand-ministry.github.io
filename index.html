@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" ng-app="standMinistry">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="node_modules/semantic-ui/dist/semantic.css"/>
+    <link rel="stylesheet" href="node_modules/semantic-ui/dist/components/shape.css"/>
+    <link rel="stylesheet" href="node_modules/semantic-ui/dist/components/dropdown.css"/>
+    <link rel="stylesheet" href="node_modules/semantic-ui/dist/components/popup.css"/>
+    <link rel="stylesheet" href="node_modules/semantic-ui/dist/components/sidebar.css"/>
+    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css"/>
+</head>
+<body>
+<div class="ui button js-show-sidebar">
+    <i class="content icon"></i>
+</div>
+<div class="ui left vertical inverted labeled icon sidebar menu scale down">
+    <a class="item" ui-sref="{{item.url}}" ui-sref-active="active" ng-repeat="item in sidebar">
+        <i class="{{item.icon_class}} icon"></i>
+        {{item.title}}
+        <div class="ui teal label circular mini" ng-show="item.notifications">{{item.notifications}}</div>
+    </a>
+</div>
+<div class="pusher" ui-view></div>
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/ui-router/angular-ui-router.js"></script>
+<script src="node_modules/jquery/dist/jquery.js"></script>
+<script src="node_modules/semantic-ui/dist/semantic.js"></script>
+<script src="node_modules/semantic-ui/dist/components/shape.js"></script>
+<script src="node_modules/semantic-ui/dist/components/dropdown.js"></script>
+<script src="node_modules/semantic-ui/dist/components/popup.js"></script>
+<script src="node_modules/semantic-ui/dist/components/sidebar.js"></script>
+<script src="node_modules/angular-moment/node_modules/moment/moment.js"></script>
+<script src="node_modules/angular-moment/node_modules/moment/locale/ru.js"></script>
+<script src="node_modules/angular-moment/angular-moment.js"></script>
+<script src="node_modules/angular-loading-bar/build/loading-bar.js"></script>
+<script src="node_modules/lodash/lodash.js"></script>
+<script src="node_modules/restangular/dist/restangular.js"></script>
+<script src="node_modules/ngkookies/ngKookies.js"></script>
+<script src="bower_components/angular-toastr/dist/angular-toastr.js"></script>
+<script src="controller/CalendarYearMonthCtrl.js"></script>
+<script src="controller/CalendarYearMonthDayCtrl.js"></script>
+<script src="controller/AlarmCtrl.js"></script>
+<script src="controller/UserCtrl.js"></script>
+<script src="controller/LoginCtrl.js"></script>
+<script src="controller/MailCtrl.js"></script>
+<script src="controller/SettingCtrl.js"></script>
+<script src="controller/DayInMonthCtrl.js"></script>
+<script src="app.js"></script>
+<script>
+    $('.dropdown').dropdown({transition: 'drop'});
+
+    $('.js-load-shift-users').popup({
+        title: 'Список пользователей',
+        position: 'top right',
+        delay: {
+            show: 300,
+            hide: 100
+        }
+    });
+
+    $('.js-show-sidebar').on('click', function () {
+        $('.left.sidebar').sidebar('show');
+    });
+
+</script>
+</body>
+</html>

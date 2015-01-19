@@ -1,0 +1,50 @@
+<div class="" ng-repeat="shift in calendar.shifts">
+    <h3>Смена {{$index + 1}}</h3>
+    <p class="ui ignored message" ng-show="shift.description">
+        {{shift.description}}
+    </p>
+    <table class="ui table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Имя</th>
+            <th>Телефон</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="member in shift.members">
+            <td></td>
+            <td>
+                <i class="fast icon" ng-class="{male: member.sex == 'male', female: member.sex == 'female', user: !member.sex}'"></i> {{member.sex}} {{member.firstname}} {{member.lastname}}
+            </td>
+            <td>
+                {{member.phone}}
+            </td>
+            <td>
+                <a href="mailto:{{member.email}}">{{member.email}}</a>
+            </td>
+            <td>
+                <div class="ui animated button tiny red">
+                    <div class="visible content">Я хочу отменить участие...</div>
+                    <div class="hidden content">
+                        <i class="right remove icon"></i> Отменить участие
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="4">
+                <div class="ui animated button tiny green">
+                    <div class="visible content">Я могу быть четвертым...</div>
+                    <div class="hidden content">
+                        <i class="right check icon"></i> Подтвердить участие
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
