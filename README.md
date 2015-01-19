@@ -1,0 +1,1 @@
+# stand-ministry.github.io
